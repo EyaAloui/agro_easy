@@ -3,6 +3,12 @@
 {% block title %}Utilisateur index{% endblock %}
 
 {% block contenu %}
+<main style="
+            position: fixed;
+            left: 400px;
+            bottom: 200px;
+            width: 50%;
+            text-align: center;">
     <h1>Utilisateur index</h1>
 
     <table class="table">
@@ -12,10 +18,10 @@
                 <th>Email</th>
                 <th>Roles</th>
                 <th>Password</th>
-                <th>Cin</th>
-                <th>Telephone</th>
                 <th>Nom</th>
                 <th>Prenom</th>
+                <th>Telephone</th>
+                <th>Cin</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -24,15 +30,16 @@
             <tr>
                 <td>{{ utilisateur.id }}</td>
                 <td>{{ utilisateur.email }}</td>
-                <td>{{ utilisateur.roles }}</td>
+                <td>{{ utilisateur.roles ? utilisateur.roles|json_encode : '' }}</td>
                 <td>{{ utilisateur.password }}</td>
-                <td>{{ utilisateur.cin }}</td>
-                <td>{{ utilisateur.telephone }}</td>
                 <td>{{ utilisateur.nom }}</td>
                 <td>{{ utilisateur.prenom }}</td>
+                <td>{{ utilisateur.telephone }}</td>
+                <td>{{ utilisateur.cin }}</td>
                 <td>
                     <a href="{{ path('app_utilisateur_show', {'id': utilisateur.id}) }}">show</a>
                     <a href="{{ path('app_utilisateur_edit', {'id': utilisateur.id}) }}">edit</a>
+                    <a href="{{ path('app_utilisateur_delete', {'id': utilisateur.id}) }}">supprimer</a>
                 </td>
             </tr>
         {% else %}

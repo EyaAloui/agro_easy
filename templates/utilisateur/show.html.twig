@@ -2,7 +2,14 @@
 
 {% block title %}Utilisateur{% endblock %}
 
-{% block body %}
+{% block contenu %}
+
+ <main style="
+            position: fixed;
+            left: 500px;
+            bottom: 100px;
+            width: 50%;
+            text-align: center;">
     <h1>Utilisateur</h1>
 
     <table class="table">
@@ -24,20 +31,20 @@
                 <td>{{ utilisateur.password }}</td>
             </tr>
             <tr>
-                <th>Cin</th>
-                <td>{{ utilisateur.cin }}</td>
-            </tr>
-            <tr>
-                <th>Telephone</th>
-                <td>{{ utilisateur.telephone }}</td>
-            </tr>
-            <tr>
                 <th>Nom</th>
                 <td>{{ utilisateur.nom }}</td>
             </tr>
             <tr>
                 <th>Prenom</th>
                 <td>{{ utilisateur.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Telephone</th>
+                <td>{{ utilisateur.telephone }}</td>
+            </tr>
+            <tr>
+                <th>Cin</th>
+                <td>{{ utilisateur.cin }}</td>
             </tr>
         </tbody>
     </table>
