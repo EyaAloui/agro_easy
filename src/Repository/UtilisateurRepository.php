@@ -24,7 +24,7 @@ class UtilisateurRepository extends ServiceEntityRepository implements PasswordU
         parent::__construct($registry, Utilisateur::class);
     }
 
-    public function save(Utilisateur $entity, bool $flush = false): void
+    public function add(Utilisateur $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 

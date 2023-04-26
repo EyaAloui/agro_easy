@@ -7,70 +7,53 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Doctrine\DBAL\Types\Types;
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+
 class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    #[ORM\Column(type: 'integer')]
+    private $id;
 
-    #[ORM\Column(length: 180, unique: true)]
-    #[Assert\Email(
-        message: 'The email {{ value }} is not a valid email.',
-    )]
-    private ?string $email = null;
-
-    #[ORM\Column]
-    private array $roles = [];
-
+    #[ORM\Column(type: 'string', length: 180, unique: true)]
+    private $email;
+ 
+   
+    #[Groups("utilisateurs")]
+    #[ORM\Column(type: 'json')]
+    private $roles = [];
     /**
      * @var string The hashed password
      */
-    #[ORM\Column]
-    #[SecurityAssert\UserPassword(
-        message: 'Le mot de passe n est pas valide',
-    )]
-    private ?string $password = null;
+    #[ORM\Column(type: 'string')]
+  
+    private $password;
 
     #[ORM\Column(length: 100)]
-    #[Assert\Length(
-        min: 2,
-        max: 10,
-        minMessage: 'donner le type au moins {{ limit }} caractères ',
-        maxMessage: 'donner le type maximum {{ limit }} caractères',)]
+ 
     private ?string $nom = null;
 
     #[ORM\Column(length: 100)]
-    #[Assert\Length(
-        min: 2,
-        max: 10,
-        minMessage: 'donner le type au moins {{ limit }} caractères ',
-        maxMessage: 'donner le type maximum {{ limit }} caractères',)]
+   
     private ?string $prenom = null;
 
     #[ORM\Column(length: 20)]
-    #[Assert\Type(
-        type: 'string',
-        message: 'le numero {{ value }} nest pas valide {{ type }}.',)]
+    
     private ?string $telephone = null;
 
     #[ORM\Column]
 
-    #[Assert\Type(
-        type: 'integer',
-        message: 'le numero {{ value }} n est pas valide {{ type }}.',)]
     private ?int $cin = null;
 
-     public function __construct()
-    {
-        $this->cultures = new ArrayCollection();
-        $this->employes = new ArrayCollection();
-    }
+    #[ORM\Column(type: 'boolean')]
+    private $isVerified = false;
+
+   
     public function getId(): ?int
     {
         return $this->id;
@@ -113,8 +96,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-      
 
         return array_unique($roles);
     }
@@ -208,4 +189,31 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
+
+        return $this;
+    }
+    private $statut;
+
+    public function getStatut(): ?string
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(string $statut): self
+    {
+        $this->statut = $statut;
+
+        return $this;
+    }
+
+
 }

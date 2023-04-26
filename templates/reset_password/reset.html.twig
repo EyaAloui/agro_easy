@@ -1,0 +1,29 @@
+
+
+
+<main style="
+            position: fixed;
+            left: 300px;
+            bottom: 300px;
+            width: 50%;
+            text-align: center;
+            ">
+
+
+{% block contenu %}
+<main style="
+            position: fixed;
+            left: 300px;
+            bottom: 300px;
+            width: 50%;
+            text-align: center;">
+
+
+    <h1>Reset your password</h1>
+
+    {{ form_start(resetForm) }}
+        {{ form_row(resetForm.plainPassword) }}
+        <button class="btn btn-primary">Reset password</button>
+    {{ form_end(resetForm) }}
+{% endblock %}
+

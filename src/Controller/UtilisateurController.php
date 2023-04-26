@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+
 #[Route('/utilisateur')]
 class UtilisateurController extends AbstractController
 {
@@ -89,4 +90,8 @@ class UtilisateurController extends AbstractController
 
         return $this->redirectToRoute('app_utilisateur_index', [], Response::HTTP_SEE_OTHER);
     }
+
+  
+   
+
 }

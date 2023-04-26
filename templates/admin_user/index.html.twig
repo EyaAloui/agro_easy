@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminUserController!{% endblock %}
+
+{% block contenu %}
+{% for utilisateur in utilisateur %}
+    <tr>
+        <td>{{ utilisateur.id }}</td>
+        {% endfor %}
+{% endblock %}
